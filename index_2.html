@@ -1,0 +1,1055 @@
+<title>Launchpad Interview Scorecard</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root{
+    color-scheme: light;
+    /* base */
+    --bg:#FAF6FF;
+    --surface:#FFFFFF;
+    --surface-2:#F4EEFF;
+    --ink:#241B3A;
+    --ink-muted:#655D78;
+    --ink-faint:#9890AA;
+    --border:#E7DCFB;
+
+    /* primary + per-section accents (like syntax-highlight colors) */
+    --purple:#7C3AED;      --purple-soft:#EFE6FF;
+    --blue:#2563EB;        --blue-soft:#E3ECFF;
+    --green:#0F9D58;       --green-soft:#E1F7EA;
+    --pink:#DB2777;        --pink-soft:#FCE4F1;
+    --orange:#EA580C;      --orange-soft:#FFEADC;
+
+    /* rubric 1-5 traffic-light scale */
+    --r1:#F43F5E; --r1-soft:#FFE4E9;
+    --r2:#FB923C; --r2-soft:#FFEBDA;
+    --r3:#EAB308; --r3-soft:#FFF6D6;
+    --r4:#65A30D; --r4-soft:#EAF6D8;
+    --r5:#0F9D58; --r5-soft:#E1F7EA;
+
+    --shadow-flat: 5px 5px 0 rgba(36,27,58,0.10);
+  }
+
+  *{
+    box-sizing:border-box;
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+    color-adjust:exact;
+  }
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 8% 4%, var(--blue-soft) 0, transparent 38%),
+      radial-gradient(circle at 96% 12%, var(--pink-soft) 0, transparent 34%),
+      var(--bg);
+    color:var(--ink);
+    font-family:'Plus Jakarta Sans', system-ui, sans-serif;
+    padding:36px 18px 80px;
+  }
+  .page{
+    max-width:900px;
+    margin:0 auto;
+    display:flex;
+    flex-direction:column;
+    gap:26px;
+  }
+
+  h1,h2{
+    font-family:'Fredoka', system-ui, sans-serif;
+    font-weight:600;
+    text-wrap:balance;
+    margin:0;
+  }
+  .mono{ font-family:'JetBrains Mono', ui-monospace, monospace; }
+
+  /* ===== Header: code-editor window chrome ===== */
+  header.hero{
+    background:var(--surface);
+    border:3px solid var(--ink);
+    border-radius:18px;
+    box-shadow:8px 8px 0 var(--purple);
+    overflow:hidden;
+  }
+  .win-bar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 16px;
+    background:var(--surface-2);
+    border-bottom:3px solid var(--ink);
+  }
+  .win-dot{ width:12px; height:12px; border-radius:50%; border:2px solid var(--ink); }
+  .win-dot.red{ background:#FF6B6B; }
+  .win-dot.yellow{ background:#FFD166; }
+  .win-dot.green{ background:#8CE99A; }
+  .win-tab{
+    margin-left:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--ink-muted);
+    background:var(--surface);
+    border:2px solid var(--border);
+    border-bottom:none;
+    border-radius:8px 8px 0 0;
+    padding:4px 12px 5px;
+  }
+  .hero-body{ padding:26px 30px 28px; display:flex; flex-direction:column; gap:16px; }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--purple);
+    font-weight:500;
+  }
+  header.hero h1{ font-size:32px; line-height:1.15; color:var(--ink); }
+  header.hero p.sub{
+    margin:0;
+    color:var(--ink-muted);
+    font-size:15px;
+    line-height:1.6;
+    max-width:64ch;
+  }
+  .meta-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(150px,1fr));
+    gap:12px;
+    margin-top:4px;
+  }
+  .meta-field label{
+    display:block;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    color:var(--ink-faint);
+    margin-bottom:5px;
+    font-family:'JetBrains Mono', monospace;
+  }
+  .meta-field input, .meta-field select{
+    width:100%;
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink);
+    background:var(--surface-2);
+    border:2px solid var(--border);
+    border-radius:10px;
+    padding:8px 10px;
+  }
+  .meta-field input:focus, .meta-field select:focus, textarea:focus{
+    outline:none;
+    border-color:var(--purple);
+  }
+
+  .timebar{
+    display:flex;
+    border-radius:8px;
+    overflow:hidden;
+    height:12px;
+    border:2px solid var(--ink);
+  }
+  .timebar span{ height:100%; }
+  .timebar-legend{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 16px;
+    font-size:12px;
+    color:var(--ink-muted);
+    font-family:'JetBrains Mono', monospace;
+  }
+  .timebar-legend .dot{
+    width:9px;height:9px;border-radius:3px;
+    display:inline-block;
+    margin-right:6px;
+    border:1.5px solid var(--ink);
+  }
+
+  /* ===== Rubric strip ===== */
+  .rubric{
+    background:var(--surface);
+    border:3px solid var(--ink);
+    border-radius:18px;
+    box-shadow:var(--shadow-flat);
+    padding:18px 24px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .rubric-title{
+    display:flex;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:8px 10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .rubric-title span.note{
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-weight:400;
+    color:var(--ink-muted);
+    font-size:13px;
+  }
+  .rubric-grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:10px;
+  }
+  .rubric-cell{
+    border:2px solid var(--ink);
+    border-radius:12px;
+    padding:10px 11px;
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+  }
+  .rubric-cell .n{
+    font-family:'JetBrains Mono', monospace;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+    width:24px; height:24px;
+    border-radius:7px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .rubric-cell p{
+    margin:0;
+    font-size:12px;
+    line-height:1.4;
+    color:var(--ink-muted);
+  }
+  .rc-1{ background:var(--r1-soft); } .rc-1 .n{ background:var(--r1); color:#fff; }
+  .rc-2{ background:var(--r2-soft); } .rc-2 .n{ background:var(--r2); color:#fff; }
+  .rc-3{ background:var(--r3-soft); } .rc-3 .n{ background:var(--r3); color:#3a2c00; }
+  .rc-4{ background:var(--r4-soft); } .rc-4 .n{ background:var(--r4); color:#fff; }
+  .rc-5{ background:var(--r5-soft); } .rc-5 .n{ background:var(--r5); color:#fff; }
+  @media (max-width:640px){
+    .rubric-grid{ grid-template-columns:repeat(2, 1fr); }
+  }
+
+  /* ===== Section cards, each tinted by its own accent ===== */
+  section.block{
+    background:var(--surface);
+    border:3px solid var(--ink);
+    border-radius:18px;
+    box-shadow:6px 6px 0 var(--acc);
+    overflow:hidden;
+  }
+  .block--python{ --acc:var(--blue); --acc-soft:var(--blue-soft); }
+  .block--sql{ --acc:var(--purple); --acc-soft:var(--purple-soft); }
+  .block--deops{ --acc:var(--green); --acc-soft:var(--green-soft); }
+  .block--interp{ --acc:var(--pink); --acc-soft:var(--pink-soft); }
+  .block--fit{ --acc:var(--orange); --acc-soft:var(--orange-soft); }
+
+  .block-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:14px;
+    padding:20px 24px 6px;
+    background:var(--acc-soft);
+    border-bottom:3px solid var(--ink);
+  }
+  .def-line{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    display:block;
+    margin-bottom:4px;
+  }
+  .def-kw{ color:var(--pink); font-weight:700; }
+  .def-name{ color:var(--acc); font-weight:700; }
+  .def-punct{ color:var(--ink-muted); }
+  .block-head h2{ font-size:23px; color:var(--ink); }
+  .block-time{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    font-weight:700;
+    color:var(--ink);
+    background:var(--surface);
+    border:2px solid var(--ink);
+    border-radius:999px;
+    padding:4px 12px;
+    white-space:nowrap;
+  }
+  .block-body{ padding:18px 24px 26px; display:flex; flex-direction:column; gap:16px;}
+
+  .criteria{
+    counter-reset:crit;
+    margin:0;
+    padding:0;
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+  }
+  .criteria li{
+    counter-increment:crit;
+    padding:14px 0;
+    border-top:2px dashed var(--border);
+  }
+  .criteria li:first-child{ border-top:none; padding-top:2px; }
+  .criteria li:last-child{ padding-bottom:2px; }
+
+  .crit-top{
+    display:flex;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:8px 10px;
+  }
+  .crit-top::before{
+    content:counter(crit);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:12px;
+    color:var(--acc);
+    background:var(--acc-soft);
+    border:2px solid var(--acc);
+    width:22px; height:22px;
+    border-radius:7px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    flex:none;
+  }
+  .crit-title{
+    margin:0;
+    font-family:'Plus Jakarta Sans', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--ink);
+  }
+  .crit-badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    font-weight:700;
+    color:var(--acc);
+    background:var(--acc-soft);
+    border:1.5px solid var(--acc);
+    border-radius:999px;
+    padding:2px 9px;
+    white-space:nowrap;
+  }
+  .crit-desc{
+    margin:5px 0 0 32px;
+    font-size:13.5px;
+    line-height:1.55;
+    color:var(--ink-muted);
+    max-width:64ch;
+  }
+  .crit-ask{
+    margin:9px 0 0 32px;
+    padding:10px 13px;
+    background:var(--acc-soft);
+    border:2px solid var(--acc);
+    border-radius:10px;
+    font-size:13px;
+    line-height:1.5;
+    color:var(--ink);
+    max-width:64ch;
+  }
+  .crit-ask .ask-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:10.5px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    color:var(--acc);
+    margin-right:7px;
+  }
+  .crit-ask q{ font-style:italic; quotes:"\201C""\201D"; }
+
+  .own-q{
+    background:var(--surface-2);
+    border:2px dashed var(--ink-faint);
+    border-radius:12px;
+    padding:11px 15px;
+  }
+  .own-q label{
+    display:block;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--ink-faint);
+    margin-bottom:6px;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+  }
+  .own-q textarea{
+    width:100%;
+    min-height:46px;
+    resize:vertical;
+    border:none;
+    background:transparent;
+    color:var(--ink);
+    font-family:inherit;
+    font-size:14px;
+    padding:0;
+  }
+  .own-q textarea:focus{ outline:none; }
+
+  .rate-row{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:14px;
+    padding-top:2px;
+  }
+  .rate-label{
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    color:var(--ink-faint);
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+  }
+  .pills{ display:flex; gap:7px; }
+  .pills input{ display:none; }
+  .pills label{
+    position:relative;
+    width:36px; height:36px;
+    border-radius:10px;
+    border:2px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:14px;
+    color:var(--ink-muted);
+    cursor:pointer;
+    background:var(--surface-2);
+    overflow:hidden;
+  }
+  .pills label::after{
+    content:"";
+    position:absolute; left:0; right:0; bottom:0; height:4px;
+  }
+  .pills label[for$="-1"]::after{ background:var(--r1); }
+  .pills label[for$="-2"]::after{ background:var(--r2); }
+  .pills label[for$="-3"]::after{ background:var(--r3); }
+  .pills label[for$="-4"]::after{ background:var(--r4); }
+  .pills label[for$="-5"]::after{ background:var(--r5); }
+  .pills input[value="1"]:checked + label{ background:var(--r1); border-color:var(--r1); color:#fff; }
+  .pills input[value="2"]:checked + label{ background:var(--r2); border-color:var(--r2); color:#fff; }
+  .pills input[value="3"]:checked + label{ background:var(--r3); border-color:var(--r3); color:#3a2c00; }
+  .pills input[value="4"]:checked + label{ background:var(--r4); border-color:var(--r4); color:#fff; }
+  .pills input[value="5"]:checked + label{ background:var(--r5); border-color:var(--r5); color:#fff; }
+  .pills input:checked + label::after{ display:none; }
+
+  .flag-check{
+    display:flex; align-items:center; gap:7px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--orange);
+    margin-left:auto;
+    font-family:'JetBrains Mono', monospace;
+  }
+  .flag-check input{ accent-color:var(--orange); width:16px; height:16px; }
+
+  textarea.notes{
+    width:100%;
+    min-height:56px;
+    resize:vertical;
+    border:2px solid var(--border);
+    border-radius:10px;
+    background:var(--surface-2);
+    color:var(--ink);
+    font-family:inherit;
+    font-size:14px;
+    padding:9px 12px;
+  }
+  textarea.notes:focus{ outline:none; border-color:var(--acc, var(--purple)); }
+
+  /* ===== Summary ===== */
+  section.summary{
+    background:var(--surface);
+    border:3px solid var(--ink);
+    border-radius:18px;
+    box-shadow:6px 6px 0 var(--purple);
+    padding:24px 26px 26px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  section.summary h2{ font-size:22px; color:var(--ink); }
+  .score-row{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .score-dial{
+    font-family:'JetBrains Mono', monospace;
+    font-weight:700;
+    font-size:42px;
+    font-variant-numeric:tabular-nums;
+    color:var(--purple);
+    line-height:1;
+    background:var(--purple-soft);
+    border:3px solid var(--ink);
+    border-radius:14px;
+    padding:10px 18px;
+  }
+  .score-dial small{ font-size:15px; color:var(--ink-muted); font-weight:500; }
+  .score-breakdown{
+    display:flex; flex-wrap:wrap; gap:8px 16px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    color:var(--ink-muted);
+  }
+  .score-breakdown b{ color:var(--ink); }
+
+  .rec-row{ display:flex; flex-wrap:wrap; gap:10px; }
+  .rec-row input{ display:none; }
+  .rec-row label{
+    padding:9px 18px;
+    border-radius:999px;
+    border:2px solid var(--ink);
+    background:var(--surface-2);
+    font-size:13.5px;
+    font-weight:700;
+    cursor:pointer;
+    color:var(--ink-muted);
+  }
+  .rec-row input:checked + label{
+    background:var(--purple);
+    border-color:var(--purple);
+    color:#fff;
+  }
+
+  .training-tags{ display:flex; flex-wrap:wrap; gap:9px; }
+  .training-tags label{
+    display:flex; align-items:center; gap:7px;
+    padding:7px 13px;
+    border-radius:10px;
+    background:var(--surface-2);
+    border:2px solid var(--border);
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+  }
+  .training-tags input{ accent-color:var(--orange); }
+
+  .actions{
+    display:flex; flex-wrap:wrap; gap:12px; justify-content:flex-end;
+  }
+  button.btn{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13.5px;
+    font-weight:700;
+    border-radius:10px;
+    padding:11px 20px;
+    cursor:pointer;
+    border:2px solid var(--ink);
+    background:var(--surface);
+    color:var(--ink);
+    box-shadow:3px 3px 0 var(--ink);
+    transition:transform .08s, box-shadow .08s;
+  }
+  button.btn:hover{ transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); }
+  button.btn:active{ transform:translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
+  button.btn.primary{ background:var(--purple); color:#fff; }
+
+  footer.note{
+    text-align:center;
+    font-size:12px;
+    color:var(--ink-faint);
+    padding-bottom:10px;
+    font-family:'JetBrains Mono', monospace;
+  }
+
+  @media (max-width:520px){
+    .hero-body, .block-head, .block-body, section.summary{ padding-left:16px; padding-right:16px; }
+    .score-dial{ font-size:32px; }
+  }
+
+  @media print{
+    body{ background:#fff; padding:0; }
+    section.block, header.hero, section.summary, .rubric{ box-shadow:none; break-inside:avoid; }
+    .actions, .print-hint{ display:none; }
+    .page{ max-width:100%; gap:14px; }
+    textarea{ overflow:visible !important; resize:none; border-color:#c4ccd4; }
+    .own-q textarea{ min-height:auto; }
+    .pills input[value="1"]:checked + label{ background:#F43F5E !important; border-color:#F43F5E !important; color:#fff !important; }
+    .pills input[value="2"]:checked + label{ background:#FB923C !important; border-color:#FB923C !important; color:#fff !important; }
+    .pills input[value="3"]:checked + label{ background:#EAB308 !important; border-color:#EAB308 !important; color:#3a2c00 !important; }
+    .pills input[value="4"]:checked + label{ background:#65A30D !important; border-color:#65A30D !important; color:#fff !important; }
+    .pills input[value="5"]:checked + label{ background:#0F9D58 !important; border-color:#0F9D58 !important; color:#fff !important; }
+    .flag-check input:checked{ accent-color:#EA580C !important; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="hero">
+    <div class="win-bar">
+      <span class="win-dot red"></span><span class="win-dot yellow"></span><span class="win-dot green"></span>
+      <span class="win-tab">interview_scorecard.py</span>
+    </div>
+    <div class="hero-body">
+      <span class="eyebrow">// Launchpad · Technical &amp; Culture Fit Interview</span>
+      <h1>Interview Scorecard</h1>
+      <p class="sub">One standardized 30‑minute round, run the same way by every interviewer. Sections and criteria are fixed so every candidate is measured against the same baseline — the questions inside each section are yours to choose. Scores below double as the raw input for each intern's first‑month training plan.</p>
+
+      <div class="meta-grid">
+        <div class="meta-field"><label>Candidate</label><input type="text" placeholder="Full name"></div>
+        <div class="meta-field"><label>Interviewer</label><input type="text" placeholder="Your name"></div>
+        <div class="meta-field"><label>Date</label><input type="date"></div>
+        <div class="meta-field"><label>Track applied for</label>
+          <select>
+            <option>Data Analyst</option>
+            <option>Data Engineer</option>
+            <option>AI / ML</option>
+            <option>DevOps</option>
+            <option>Unsure / general Launchpad pool</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <div class="timebar">
+          <span style="width:6.7%; background:var(--ink-faint);" title="Intro — 2 min"></span>
+          <span style="width:20%; background:var(--blue);" title="Python — 6 min"></span>
+          <span style="width:30%; background:var(--purple);" title="SQL — 9 min"></span>
+          <span style="width:20%; background:var(--green);" title="Data Eng &amp; Ops — 6 min"></span>
+          <span style="width:13.3%; background:var(--pink);" title="Data interpretation &amp; analytical thinking — 4 min"></span>
+          <span style="width:10%; background:var(--orange);" title="Communication &amp; fit — 3 min"></span>
+        </div>
+        <div class="timebar-legend" style="margin-top:8px;">
+          <span><span class="dot" style="background:var(--ink-faint)"></span>Intro · 2m</span>
+          <span><span class="dot" style="background:var(--blue)"></span>Python · 6m</span>
+          <span><span class="dot" style="background:var(--purple)"></span>SQL · 9m</span>
+          <span><span class="dot" style="background:var(--green)"></span>Data Eng &amp; Ops · 6m</span>
+          <span><span class="dot" style="background:var(--pink)"></span>Data interpretation · 4m</span>
+          <span><span class="dot" style="background:var(--orange)"></span>Comms &amp; fit · 3m</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- RUBRIC -->
+  <div class="rubric">
+    <div class="rubric-title">// Rating rubric <span class="note">— same 1–5 anchors apply to every scored section below, so a "3" from one interviewer means the same as a "3" from another.</span></div>
+    <div class="rubric-grid">
+      <div class="rubric-cell rc-1"><span class="n">1</span><p>No real grasp — can't produce a working answer even with hints.</p></div>
+      <div class="rubric-cell rc-2"><span class="n">2</span><p>Surface-level — needs heavy prompting, several clear gaps.</p></div>
+      <div class="rubric-cell rc-3"><span class="n">3</span><p>Solid on fundamentals — completes the task with minor gaps or some prompting.</p></div>
+      <div class="rubric-cell rc-4"><span class="n">4</span><p>Strong &amp; independent — correct, reasonably efficient, minimal prompting.</p></div>
+      <div class="rubric-cell rc-5"><span class="n">5</span><p>Excellent — correct, efficient, could mentor others on this.</p></div>
+    </div>
+  </div>
+
+  <!-- SECTION 1 — PYTHON -->
+  <section class="block block--python" data-weight="1">
+    <div class="block-head">
+      <div>
+        <span class="def-line"><span class="def-kw">def</span> <span class="def-name">python_fundamentals</span><span class="def-punct">(candidate):</span></span>
+        <h2>Python</h2>
+      </div>
+      <span class="block-time">~6 min</span>
+    </div>
+    <div class="block-body">
+      <ul class="criteria">
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Core data structures</h3></div>
+          <p class="crit-desc">Lists, dicts, tuples, sets; can explain when to use which and why.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>When would you use a tuple instead of a list? Why can't a list be used as a dictionary key?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Variables &amp; mutability</h3></div>
+          <p class="crit-desc">Scope, mutable vs immutable types, common gotchas.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>If I pass a list into a function and append to it inside, does the original list outside change? Why?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">OOP basics</h3></div>
+          <p class="crit-desc">Classes, objects, `__init__`, basic inheritance.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Write a small class with an `__init__` and one method. What's the difference between an instance attribute and a class attribute?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Decorators</h3><span class="crit-badge">mastery not expected</span></div>
+          <p class="crit-desc">Recognizes what a decorator is and roughly how it's used.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>What does `@staticmethod` do? Have you used or seen a decorator like `@property` before?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Writes actual code</h3></div>
+          <p class="crit-desc">Ask them to write a short function live. Evaluate the code they produce, not just what they describe.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Given a list of order dicts like `{"customer": "A", "amount": 120}`, write a function that returns total spend per customer.</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Data exposure</h3></div>
+          <p class="crit-desc">What formats/datasets they've handled: CSV, JSON, APIs, dataframes, etc.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>What's the difference between reading a CSV with plain Python vs pandas? When would you reach for each?</q></p>
+        </li>
+      </ul>
+      <div class="own-q">
+        <label>Your questions for this section</label>
+        <textarea placeholder="Add the specific Python questions you'll ask — keep them mapped to the criteria above."></textarea>
+      </div>
+      <div class="rate-row">
+        <span class="rate-label">Score</span>
+        <div class="pills" data-section="python">
+          <input type="radio" name="python" id="python-1" value="1"><label for="python-1" title="No real grasp — can't produce a working answer even with hints.">1</label>
+          <input type="radio" name="python" id="python-2" value="2"><label for="python-2" title="Surface-level — needs heavy prompting, several clear gaps.">2</label>
+          <input type="radio" name="python" id="python-3" value="3"><label for="python-3" title="Solid on fundamentals — completes the task with minor gaps or some prompting.">3</label>
+          <input type="radio" name="python" id="python-4" value="4"><label for="python-4" title="Strong &amp; independent — correct, reasonably efficient, minimal prompting.">4</label>
+          <input type="radio" name="python" id="python-5" value="5"><label for="python-5" title="Excellent — correct, efficient, could mentor others on this.">5</label>
+        </div>
+        <label class="flag-check"><input type="checkbox" data-flag="Python fundamentals"> flag for training</label>
+      </div>
+      <textarea class="notes" placeholder="Notes — strengths, gaps, anything specific worth flagging..."></textarea>
+    </div>
+  </section>
+
+  <!-- SECTION 2 — SQL -->
+  <section class="block block--sql" data-weight="1">
+    <div class="block-head">
+      <div>
+        <span class="def-line"><span class="def-kw">def</span> <span class="def-name">sql_deep_dive</span><span class="def-punct">(candidate):</span> <span class="crit-badge">weighted focus area</span></span>
+        <h2>SQL</h2>
+      </div>
+      <span class="block-time">~9 min</span>
+    </div>
+    <div class="block-body">
+      <ul class="criteria">
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Query writing</h3></div>
+          <p class="crit-desc">SELECT, JOIN types (inner/left), GROUP BY, HAVING, filtering logic.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Given `customers` and `orders` tables, write a query that returns all customers and their orders — even customers who never ordered anything.</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Window functions</h3></div>
+          <p class="crit-desc">RANK/ROW_NUMBER, LAG/LEAD, PARTITION BY; do they know when to reach for one over a GROUP BY.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Using a sales table with region, month, and sales columns, how would you find each region's previous month's sales? (LAG + PARTITION BY)</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Aggregate reasoning</h3></div>
+          <p class="crit-desc">Can explain why a query breaks or returns wrong grouping, not just write syntax from memory.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>When would you use SUM vs COUNT vs AVG, and how does each behave with NULLs? What's the difference between WHERE and HAVING?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Concept fluency</h3></div>
+          <p class="crit-desc">CTE vs subquery, UNION vs UNION ALL, and when each is the right call.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>What's the difference between a CTE and a subquery? Between UNION and UNION ALL — when would performance push you toward one?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Writes an actual script</h3><span class="crit-badge">highest weight</span></div>
+          <p class="crit-desc">Give a small sample schema and have them write a real query live. Score primarily on what they write.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Given a `customers` table, write a query to find any `customer_id` that appears more than once.</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Optimization awareness</h3><span class="crit-badge">stretch, optional</span></div>
+          <p class="crit-desc">Basic sense of why a query might be slow (indexes, full scans).</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Your query is running slow on a large table — walk me through how you'd investigate and speed it up.</q></p>
+        </li>
+      </ul>
+      <div class="own-q">
+        <label>Your questions for this section</label>
+        <textarea placeholder="Add your SQL prompts / sample schema+query task here."></textarea>
+      </div>
+      <div class="rate-row">
+        <span class="rate-label">Score</span>
+        <div class="pills" data-section="sql">
+          <input type="radio" name="sql" id="sql-1" value="1"><label for="sql-1" title="No real grasp — can't produce a working answer even with hints.">1</label>
+          <input type="radio" name="sql" id="sql-2" value="2"><label for="sql-2" title="Surface-level — needs heavy prompting, several clear gaps.">2</label>
+          <input type="radio" name="sql" id="sql-3" value="3"><label for="sql-3" title="Solid on fundamentals — completes the task with minor gaps or some prompting.">3</label>
+          <input type="radio" name="sql" id="sql-4" value="4"><label for="sql-4" title="Strong &amp; independent — correct, reasonably efficient, minimal prompting.">4</label>
+          <input type="radio" name="sql" id="sql-5" value="5"><label for="sql-5" title="Excellent — correct, efficient, could mentor others on this.">5</label>
+        </div>
+        <label class="flag-check"><input type="checkbox" data-flag="SQL / query writing"> flag for training</label>
+      </div>
+      <textarea class="notes" placeholder="Notes..."></textarea>
+    </div>
+  </section>
+
+  <!-- SECTION 3 — DATA ENGINEERING & OPS BASICS -->
+  <section class="block block--deops" data-weight="1">
+    <div class="block-head">
+      <div>
+        <span class="def-line"><span class="def-kw">def</span> <span class="def-name">data_eng_and_devops</span><span class="def-punct">(candidate):</span></span>
+        <h2>Data Eng &amp; DevOps</h2>
+      </div>
+      <span class="block-time">~6 min</span>
+    </div>
+    <div class="block-body">
+      <ul class="criteria">
+        <li>
+          <div class="crit-top"><h3 class="crit-title">ETL/ELT concept</h3></div>
+          <p class="crit-desc">Can explain extract → transform → load in their own words, with an example.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Walk me through, in your own words, what happens to data between a source system and a warehouse.</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">DB concepts</h3></div>
+          <p class="crit-desc">Normalization, primary/foreign keys, relational vs non‑relational, fact/dimension modeling at a basic level.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>What's the difference between a fact table and a dimension table? Between a star schema and a snowflake schema?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Git basics</h3></div>
+          <p class="crit-desc">Clone/commit/push/pull, what a branch is, merge vs rebase awareness.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Walk me through the commands you'd use to start a new feature: create a branch, commit a change, and get it ready for review.</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Code hygiene</h3></div>
+          <p class="crit-desc">Readable naming, comments, no hard‑coded values where they shouldn't be.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>[Show a short snippet] What would you rename or restructure here to make it easier for a teammate to read?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Secrets awareness</h3></div>
+          <p class="crit-desc">Do they know a leaked key needs rotating, not just deleting the line.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>You just noticed you pushed an API key to a public repo five minutes ago. What do you do right now?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Docker/containers</h3><span class="crit-badge">awareness level</span></div>
+          <p class="crit-desc">Knows roughly what a container is and why teams use one; not expected to build images.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>In plain terms, what's a container, and why would a team use one instead of just running code on a VM?</q></p>
+        </li>
+      </ul>
+      <div class="own-q">
+        <label>Your questions for this section</label>
+        <textarea placeholder="Add your Git/DB/Docker questions here."></textarea>
+      </div>
+      <div class="rate-row">
+        <span class="rate-label">Score</span>
+        <div class="pills" data-section="deops">
+          <input type="radio" name="deops" id="deops-1" value="1"><label for="deops-1" title="No real grasp — can't produce a working answer even with hints.">1</label>
+          <input type="radio" name="deops" id="deops-2" value="2"><label for="deops-2" title="Surface-level — needs heavy prompting, several clear gaps.">2</label>
+          <input type="radio" name="deops" id="deops-3" value="3"><label for="deops-3" title="Solid on fundamentals — completes the task with minor gaps or some prompting.">3</label>
+          <input type="radio" name="deops" id="deops-4" value="4"><label for="deops-4" title="Strong &amp; independent — correct, reasonably efficient, minimal prompting.">4</label>
+          <input type="radio" name="deops" id="deops-5" value="5"><label for="deops-5" title="Excellent — correct, efficient, could mentor others on this.">5</label>
+        </div>
+        <label class="flag-check"><input type="checkbox" data-flag="Git, DB concepts &amp; DevOps basics"> flag for training</label>
+      </div>
+      <textarea class="notes" placeholder="Notes..."></textarea>
+    </div>
+  </section>
+
+  <!-- SECTION 4 — DATA INTERPRETATION & ANALYTICAL THINKING -->
+  <section class="block block--interp" data-weight="1">
+    <div class="block-head">
+      <div>
+        <span class="def-line"><span class="def-kw">def</span> <span class="def-name">data_interpretation</span><span class="def-punct">(candidate):</span></span>
+        <h2>Data Interpretation</h2>
+      </div>
+      <span class="block-time">~4 min</span>
+    </div>
+    <div class="block-body">
+      <ul class="criteria">
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Come with a real data sample</h3></div>
+          <p class="crit-desc">A small table or chart (e.g. weekly signups by channel, ticket resolution times by team, sales by region) — hand it to the candidate and let them work from it directly, rather than an abstract scenario. Paste or describe the exact sample you'll use in the box below so it's consistent across interviewers.</p>
+          <p class="crit-ask"><span class="ask-tag">Sample dataset</span><q>Weekly signups for 4 marketing channels over 6 weeks, where one channel (e.g. "Referral") has quietly doubled while the others are flat.</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Reads the data correctly first</h3></div>
+          <p class="crit-desc">States what's actually in front of them (axes, units, time period) before interpreting it.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Before we go further, what is this table actually showing — what's each column, and over what period?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Spots patterns / anomalies</h3></div>
+          <p class="crit-desc">Trends, outliers, or breaks in the numbers, not just a row-by-row description.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>What stands out to you in this table? Is anything moving differently than the rest?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Gets to "so what"</h3></div>
+          <p class="crit-desc">Moves from observation to insight: what this likely means and why it might be happening.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Why do you think Referral signups jumped like that? What are two or three plausible explanations?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Turns insight into action</h3></div>
+          <p class="crit-desc">Proposes a next step, decision, or thing they'd check next, not just a description of the data.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>If this were real, what would you do next — what would you look into, or recommend to the team?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Flags uncertainty appropriately</h3></div>
+          <p class="crit-desc">Asks about data source/definitions or names what they'd verify before acting on it, rather than overreaching from a small sample.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>How confident are you in that explanation with only 6 weeks of data? What would you want to check before acting on it?</q></p>
+        </li>
+      </ul>
+      <div class="own-q">
+        <label>Your data sample &amp; questions for this section</label>
+        <textarea placeholder="Paste/describe the data table or chart you'll show the candidate, plus the specific questions you'll ask about it."></textarea>
+      </div>
+      <div class="rate-row">
+        <span class="rate-label">Score</span>
+        <div class="pills" data-section="analytical">
+          <input type="radio" name="analytical" id="analytical-1" value="1"><label for="analytical-1" title="No real grasp — can't produce a working answer even with hints.">1</label>
+          <input type="radio" name="analytical" id="analytical-2" value="2"><label for="analytical-2" title="Surface-level — needs heavy prompting, several clear gaps.">2</label>
+          <input type="radio" name="analytical" id="analytical-3" value="3"><label for="analytical-3" title="Solid on fundamentals — completes the task with minor gaps or some prompting.">3</label>
+          <input type="radio" name="analytical" id="analytical-4" value="4"><label for="analytical-4" title="Strong &amp; independent — correct, reasonably efficient, minimal prompting.">4</label>
+          <input type="radio" name="analytical" id="analytical-5" value="5"><label for="analytical-5" title="Excellent — correct, efficient, could mentor others on this.">5</label>
+        </div>
+        <label class="flag-check"><input type="checkbox" data-flag="Data interpretation / analytical thinking"> flag for training</label>
+      </div>
+      <textarea class="notes" placeholder="Notes..."></textarea>
+    </div>
+  </section>
+
+  <!-- SECTION 5 — COMMUNICATION & CULTURE -->
+  <section class="block block--fit" data-weight="1">
+    <div class="block-head">
+      <div>
+        <span class="def-line"><span class="def-kw">def</span> <span class="def-name">communication_and_fit</span><span class="def-punct">(candidate):</span></span>
+        <h2>Communication &amp; Fit</h2>
+      </div>
+      <span class="block-time">~3 min</span>
+    </div>
+    <div class="block-body">
+      <ul class="criteria">
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Clarity</h3></div>
+          <p class="crit-desc">Explains a technical idea so a non‑technical listener would follow.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Explain what a JOIN is to someone with no technical background.</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Adaptability</h3></div>
+          <p class="crit-desc">Responds well when pushed back on or redirected mid‑answer.</p>
+          <p class="crit-ask"><span class="ask-tag">Try</span><q>Push back on an earlier answer — "I don't think that's quite right, walk me through your reasoning again" — and see how they respond.</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Motivation</h3></div>
+          <p class="crit-desc">Why Launchpad, why this track, what they're hoping to learn.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>What made you apply for this track specifically, and what do you want to be able to do by the end of it?</q></p>
+        </li>
+        <li>
+          <div class="crit-top"><h3 class="crit-title">Team fit</h3></div>
+          <p class="crit-desc">Collaboration signals, energy, how they'd describe their working style.</p>
+          <p class="crit-ask"><span class="ask-tag">Ask</span><q>Tell me about a time you had to ask for help on something you didn't know how to do — what happened?</q></p>
+        </li>
+      </ul>
+      <div class="own-q">
+        <label>Your questions for this section</label>
+        <textarea placeholder="Add your fit / motivation questions here."></textarea>
+      </div>
+      <div class="rate-row">
+        <span class="rate-label">Score</span>
+        <div class="pills" data-section="fit">
+          <input type="radio" name="fit" id="fit-1" value="1"><label for="fit-1" title="No real grasp — can't produce a working answer even with hints.">1</label>
+          <input type="radio" name="fit" id="fit-2" value="2"><label for="fit-2" title="Surface-level — needs heavy prompting, several clear gaps.">2</label>
+          <input type="radio" name="fit" id="fit-3" value="3"><label for="fit-3" title="Solid on fundamentals — completes the task with minor gaps or some prompting.">3</label>
+          <input type="radio" name="fit" id="fit-4" value="4"><label for="fit-4" title="Strong &amp; independent — correct, reasonably efficient, minimal prompting.">4</label>
+          <input type="radio" name="fit" id="fit-5" value="5"><label for="fit-5" title="Excellent — correct, efficient, could mentor others on this.">5</label>
+        </div>
+        <label class="flag-check"><input type="checkbox" data-flag="Communication"> flag for training</label>
+      </div>
+      <textarea class="notes" placeholder="Notes..."></textarea>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="summary">
+    <h2>// Overall</h2>
+    <div class="score-row">
+      <div class="score-dial"><span id="composite">–</span><small>/5 composite</small></div>
+      <div class="score-breakdown" id="breakdown">Score each section above to populate this.</div>
+    </div>
+
+    <div>
+      <div class="rate-label" style="margin-bottom:8px;">Recommendation</div>
+      <div class="rec-row">
+        <input type="radio" name="rec" id="rec-1"><label for="rec-1">Strong yes</label>
+        <input type="radio" name="rec" id="rec-2"><label for="rec-2">Yes</label>
+        <input type="radio" name="rec" id="rec-3"><label for="rec-3">Maybe</label>
+        <input type="radio" name="rec" id="rec-4"><label for="rec-4">No</label>
+      </div>
+    </div>
+
+    <div>
+      <div class="rate-label" style="margin-bottom:8px;">Training focus to flag (feeds the 2‑month plan)</div>
+      <div class="training-tags" id="training-tags">
+        <label><input type="checkbox" value="Python fundamentals"> Python fundamentals</label>
+        <label><input type="checkbox" value="SQL / query writing"> SQL / query writing</label>
+        <label><input type="checkbox" value="DB &amp; data modeling concepts"> DB &amp; data modeling concepts</label>
+        <label><input type="checkbox" value="Git &amp; version control hygiene"> Git &amp; version control hygiene</label>
+        <label><input type="checkbox" value="Docker / containers"> Docker / containers</label>
+        <label><input type="checkbox" value="ETL concepts"> ETL concepts</label>
+        <label><input type="checkbox" value="Data interpretation / analytical thinking"> Data interpretation / analytical thinking</label>
+        <label><input type="checkbox" value="Communication"> Communication</label>
+      </div>
+    </div>
+
+    <textarea class="notes" style="min-height:70px;" placeholder="Overall summary — one or two lines for the hiring thread..."></textarea>
+
+    <div class="actions" style="align-items:center;">
+      <span class="print-hint" style="margin-right:auto; font-size:12px; color:var(--ink-faint); max-width:44ch;">Opens your browser's print dialog — choose &quot;Save as PDF&quot; and turn on &quot;Background graphics&quot; so scores show up. If nothing opens, try Ctrl+P / Cmd+P directly.</span>
+      <button class="btn" id="reset-btn" type="button">Clear form</button>
+      <button class="btn primary" type="button" id="print-btn">Save as PDF</button>
+    </div>
+  </section>
+
+  <footer class="note">// same sections + criteria for every candidate — questions inside each section are the interviewer's own</footer>
+
+</div>
+
+<script>
+  const sectionIds = ['python','sql','deops','analytical','fit'];
+  const sectionLabels = {
+    python:'Python', sql:'SQL', deops:'Data Eng & Ops', analytical:'Data interp.', fit:'Comms & fit'
+  };
+
+  function recompute(){
+    const scores = {};
+    sectionIds.forEach(id=>{
+      const checked = document.querySelector(`input[name="${id}"]:checked`);
+      if(checked) scores[id] = Number(checked.value);
+    });
+    const vals = Object.values(scores);
+    const compositeEl = document.getElementById('composite');
+    const breakdownEl = document.getElementById('breakdown');
+    if(vals.length === 0){
+      compositeEl.textContent = '–';
+      breakdownEl.textContent = 'Score each section above to populate this.';
+      return;
+    }
+    const avg = vals.reduce((a,b)=>a+b,0) / vals.length;
+    compositeEl.textContent = avg.toFixed(1);
+    breakdownEl.innerHTML = sectionIds
+      .map(id => `<span><b>${sectionLabels[id]}</b> ${scores[id] ?? '—'}</span>`)
+      .join('');
+  }
+
+  sectionIds.forEach(id=>{
+    document.querySelectorAll(`input[name="${id}"]`).forEach(inp=>{
+      inp.addEventListener('change', recompute);
+    });
+  });
+
+  // auto-check the matching training tag when a "flag for training" box is ticked
+  document.querySelectorAll('.flag-check input[type="checkbox"]').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      if(!cb.checked) return;
+      const label = cb.getAttribute('data-flag');
+      document.querySelectorAll('#training-tags input[type="checkbox"]').forEach(tag=>{
+        if(tag.value === label) tag.checked = true;
+      });
+    });
+  });
+
+  document.getElementById('reset-btn').addEventListener('click', ()=>{
+    document.querySelectorAll('input[type="text"], input[type="date"]').forEach(i=>i.value='');
+    document.querySelectorAll('textarea').forEach(t=>t.value='');
+    document.querySelectorAll('input[type="radio"], input[type="checkbox"]').forEach(i=>i.checked=false);
+    document.querySelector('select').selectedIndex = 0;
+    recompute();
+  });
+
+  // Expand every textarea to fit its full typed content before printing, so
+  // notes don't get cut off at whatever height they happened to be on screen —
+  // then put them back afterwards so the on-screen form is unaffected.
+  const savedTextareaHeights = new Map();
+  window.addEventListener('beforeprint', ()=>{
+    document.querySelectorAll('textarea').forEach(t=>{
+      savedTextareaHeights.set(t, t.style.height);
+      t.style.height = 'auto';
+      t.style.height = Math.max(t.scrollHeight, 40) + 'px';
+    });
+  });
+  window.addEventListener('afterprint', ()=>{
+    document.querySelectorAll('textarea').forEach(t=>{
+      t.style.height = savedTextareaHeights.get(t) || '';
+    });
+  });
+
+  document.getElementById('print-btn').addEventListener('click', ()=>{
+    try{
+      window.focus();
+      window.print();
+    }catch(e){
+      alert('This preview blocked the print dialog. Open this page in its own browser tab (not the embedded preview) and use Ctrl+P / Cmd+P instead.');
+    }
+  });
+</script>
