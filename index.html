@@ -51,7 +51,7 @@
     margin:0 auto;
     display:flex;
     flex-direction:column;
-    gap:26px;
+    gap:16px;
   }
 
   h1,h2{
@@ -93,7 +93,7 @@
     border-radius:8px 8px 0 0;
     padding:4px 12px 5px;
   }
-  .hero-body{ padding:26px 30px 28px; display:flex; flex-direction:column; gap:16px; }
+  .hero-body{ padding:18px 26px 20px; display:flex; flex-direction:column; gap:11px; }
   .eyebrow{
     font-family:'JetBrains Mono', monospace;
     font-size:12.5px;
@@ -166,12 +166,12 @@
   .rubric{
     background:var(--surface);
     border:3px solid var(--ink);
-    border-radius:18px;
+    border-radius:16px;
     box-shadow:var(--shadow-flat);
-    padding:18px 24px 20px;
+    padding:12px 20px 14px;
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:8px;
   }
   .rubric-title{
     display:flex;
@@ -195,12 +195,12 @@
     gap:10px;
   }
   .rubric-cell{
-    border:2px solid var(--ink);
-    border-radius:12px;
-    padding:10px 11px;
+    border:1.5px solid var(--ink);
+    border-radius:10px;
+    padding:7px 9px;
     display:flex;
     flex-direction:column;
-    gap:4px;
+    gap:2px;
   }
   .rubric-cell .n{
     font-family:'JetBrains Mono', monospace;
@@ -245,9 +245,9 @@
     justify-content:space-between;
     align-items:flex-start;
     gap:14px;
-    padding:20px 24px 6px;
+    padding:13px 22px;
     background:var(--acc-soft);
-    border-bottom:3px solid var(--ink);
+    border-bottom:2px solid var(--ink);
   }
   .def-line{
     font-family:'JetBrains Mono', monospace;
@@ -258,7 +258,7 @@
   .def-kw{ color:var(--pink); font-weight:700; }
   .def-name{ color:var(--acc); font-weight:700; }
   .def-punct{ color:var(--ink-muted); }
-  .block-head h2{ font-size:23px; color:var(--ink); }
+  .block-head h2{ font-size:19px; color:var(--ink); }
   .block-time{
     font-family:'JetBrains Mono', monospace;
     font-size:12px;
@@ -270,7 +270,7 @@
     padding:4px 12px;
     white-space:nowrap;
   }
-  .block-body{ padding:18px 24px 26px; display:flex; flex-direction:column; gap:16px;}
+  .block-body{ padding:12px 22px 16px; display:flex; flex-direction:column; gap:10px;}
 
   .criteria{
     counter-reset:crit;
@@ -282,85 +282,79 @@
   }
   .criteria li{
     counter-increment:crit;
-    padding:14px 0;
-    border-top:2px dashed var(--border);
+    padding:7px 0;
+    border-top:1px dashed var(--border);
   }
-  .criteria li:first-child{ border-top:none; padding-top:2px; }
-  .criteria li:last-child{ padding-bottom:2px; }
+  .criteria li:first-child{ border-top:none; padding-top:0; }
+  .criteria li:last-child{ padding-bottom:0; }
 
-  .crit-top{
-    display:flex;
-    align-items:baseline;
-    flex-wrap:wrap;
-    gap:8px 10px;
+  .crit-line{
+    margin:0;
+    font-size:13.5px;
+    line-height:1.45;
+    color:var(--ink-muted);
+    max-width:66ch;
   }
-  .crit-top::before{
+  .crit-line::before{
     content:counter(crit);
     font-family:'JetBrains Mono', monospace;
     font-weight:700;
-    font-size:12px;
+    font-size:10.5px;
     color:var(--acc);
     background:var(--acc-soft);
-    border:2px solid var(--acc);
-    width:22px; height:22px;
-    border-radius:7px;
+    border:1.5px solid var(--acc);
+    width:17px; height:17px;
+    border-radius:5px;
     display:inline-flex;
     align-items:center;
     justify-content:center;
-    flex:none;
+    margin-right:7px;
+    transform:translateY(-1px);
   }
-  .crit-title{
-    margin:0;
+  .crit-line b{
     font-family:'Plus Jakarta Sans', sans-serif;
     font-weight:700;
-    font-size:15px;
+    font-size:13.5px;
     color:var(--ink);
   }
   .crit-badge{
     font-family:'JetBrains Mono', monospace;
-    font-size:10.5px;
+    font-size:9.5px;
     font-weight:700;
     color:var(--acc);
     background:var(--acc-soft);
     border:1.5px solid var(--acc);
     border-radius:999px;
-    padding:2px 9px;
+    padding:1px 8px;
     white-space:nowrap;
   }
-  .crit-desc{
-    margin:5px 0 0 32px;
-    font-size:13.5px;
-    line-height:1.55;
-    color:var(--ink-muted);
-    max-width:64ch;
-  }
   .crit-ask{
-    margin:9px 0 0 32px;
-    padding:10px 13px;
+    margin:4px 0 0 24px;
+    padding:5px 11px;
     background:var(--acc-soft);
-    border:2px solid var(--acc);
-    border-radius:10px;
-    font-size:13px;
-    line-height:1.5;
+    border-left:2.5px solid var(--acc);
+    border-radius:0 8px 8px 0;
+    font-size:12px;
+    line-height:1.4;
     color:var(--ink);
     max-width:64ch;
   }
   .crit-ask .ask-tag{
     font-family:'JetBrains Mono', monospace;
     font-weight:700;
-    font-size:10.5px;
+    font-size:9.5px;
     letter-spacing:0.04em;
     text-transform:uppercase;
     color:var(--acc);
-    margin-right:7px;
+    margin-right:6px;
   }
   .crit-ask q{ font-style:italic; quotes:"\201C""\201D"; }
 
   .own-q{
     background:var(--surface-2);
-    border:2px dashed var(--ink-faint);
-    border-radius:12px;
-    padding:11px 15px;
+    border:1.5px dashed var(--ink-faint);
+    border-radius:10px;
+    padding:7px 13px;
   }
   .own-q label{
     display:block;
@@ -374,7 +368,7 @@
   }
   .own-q textarea{
     width:100%;
-    min-height:46px;
+    min-height:32px;
     resize:vertical;
     border:none;
     background:transparent;
@@ -404,7 +398,7 @@
   .pills input{ display:none; }
   .pills label{
     position:relative;
-    width:36px; height:36px;
+    width:32px; height:32px;
     border-radius:10px;
     border:2px solid var(--ink);
     display:flex; align-items:center; justify-content:center;
@@ -444,7 +438,7 @@
 
   textarea.notes{
     width:100%;
-    min-height:56px;
+    min-height:38px;
     resize:vertical;
     border:2px solid var(--border);
     border-radius:10px;
@@ -462,10 +456,10 @@
     border:3px solid var(--ink);
     border-radius:18px;
     box-shadow:6px 6px 0 var(--purple);
-    padding:24px 26px 26px;
+    padding:18px 22px 20px;
     display:flex;
     flex-direction:column;
-    gap:20px;
+    gap:14px;
   }
   section.summary h2{ font-size:22px; color:var(--ink); }
   .score-row{
@@ -647,33 +641,27 @@
     <div class="block-body">
       <ul class="criteria">
         <li>
-          <div class="crit-top"><h3 class="crit-title">Core data structures</h3></div>
-          <p class="crit-desc">Lists, dicts, tuples, sets; can explain when to use which and why.</p>
+          <p class="crit-line"><b>Core data structures</b> — Lists, dicts, tuples, sets; can explain when to use which and why.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>When would you use a tuple instead of a list? Why can't a list be used as a dictionary key?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Variables &amp; mutability</h3></div>
-          <p class="crit-desc">Scope, mutable vs immutable types, common gotchas.</p>
+          <p class="crit-line"><b>Variables &amp; mutability</b> — Scope, mutable vs immutable types, common gotchas.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>If I pass a list into a function and append to it inside, does the original list outside change? Why?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">OOP basics</h3></div>
-          <p class="crit-desc">Classes, objects, `__init__`, basic inheritance.</p>
+          <p class="crit-line"><b>OOP basics</b> — Classes, objects, `__init__`, basic inheritance.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Write a small class with an `__init__` and one method. What's the difference between an instance attribute and a class attribute?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Decorators</h3><span class="crit-badge">mastery not expected</span></div>
-          <p class="crit-desc">Recognizes what a decorator is and roughly how it's used.</p>
+          <p class="crit-line"><b>Decorators</b> <span class="crit-badge">mastery not expected</span> — Recognizes what a decorator is and roughly how it's used.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>What does `@staticmethod` do? Have you used or seen a decorator like `@property` before?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Writes actual code</h3></div>
-          <p class="crit-desc">Ask them to write a short function live. Evaluate the code they produce, not just what they describe.</p>
+          <p class="crit-line"><b>Writes actual code</b> — Ask them to write a short function live. Evaluate the code they produce, not just what they describe.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Given a list of order dicts like `{"customer": "A", "amount": 120}`, write a function that returns total spend per customer.</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Data exposure</h3></div>
-          <p class="crit-desc">What formats/datasets they've handled: CSV, JSON, APIs, dataframes, etc.</p>
+          <p class="crit-line"><b>Data exposure</b> — What formats/datasets they've handled: CSV, JSON, APIs, dataframes, etc.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>What's the difference between reading a CSV with plain Python vs pandas? When would you reach for each?</q></p>
         </li>
       </ul>
@@ -708,33 +696,27 @@
     <div class="block-body">
       <ul class="criteria">
         <li>
-          <div class="crit-top"><h3 class="crit-title">Query writing</h3></div>
-          <p class="crit-desc">SELECT, JOIN types (inner/left), GROUP BY, HAVING, filtering logic.</p>
+          <p class="crit-line"><b>Query writing</b> — SELECT, JOIN types (inner/left), GROUP BY, HAVING, filtering logic.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Given `customers` and `orders` tables, write a query that returns all customers and their orders — even customers who never ordered anything.</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Window functions</h3></div>
-          <p class="crit-desc">RANK/ROW_NUMBER, LAG/LEAD, PARTITION BY; do they know when to reach for one over a GROUP BY.</p>
+          <p class="crit-line"><b>Window functions</b> — RANK/ROW_NUMBER, LAG/LEAD, PARTITION BY; do they know when to reach for one over a GROUP BY.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Using a sales table with region, month, and sales columns, how would you find each region's previous month's sales? (LAG + PARTITION BY)</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Aggregate reasoning</h3></div>
-          <p class="crit-desc">Can explain why a query breaks or returns wrong grouping, not just write syntax from memory.</p>
+          <p class="crit-line"><b>Aggregate reasoning</b> — Can explain why a query breaks or returns wrong grouping, not just write syntax from memory.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>When would you use SUM vs COUNT vs AVG, and how does each behave with NULLs? What's the difference between WHERE and HAVING?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Concept fluency</h3></div>
-          <p class="crit-desc">CTE vs subquery, UNION vs UNION ALL, and when each is the right call.</p>
+          <p class="crit-line"><b>Concept fluency</b> — CTE vs subquery, UNION vs UNION ALL, and when each is the right call.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>What's the difference between a CTE and a subquery? Between UNION and UNION ALL — when would performance push you toward one?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Writes an actual script</h3><span class="crit-badge">highest weight</span></div>
-          <p class="crit-desc">Give a small sample schema and have them write a real query live. Score primarily on what they write.</p>
+          <p class="crit-line"><b>Writes an actual script</b> <span class="crit-badge">highest weight</span> — Give a small sample schema and have them write a real query live. Score primarily on what they write.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Given a `customers` table, write a query to find any `customer_id` that appears more than once.</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Optimization awareness</h3><span class="crit-badge">stretch, optional</span></div>
-          <p class="crit-desc">Basic sense of why a query might be slow (indexes, full scans).</p>
+          <p class="crit-line"><b>Optimization awareness</b> <span class="crit-badge">stretch, optional</span> — Basic sense of why a query might be slow (indexes, full scans).</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Your query is running slow on a large table — walk me through how you'd investigate and speed it up.</q></p>
         </li>
       </ul>
@@ -769,33 +751,27 @@
     <div class="block-body">
       <ul class="criteria">
         <li>
-          <div class="crit-top"><h3 class="crit-title">ETL/ELT concept</h3></div>
-          <p class="crit-desc">Can explain extract → transform → load in their own words, with an example.</p>
+          <p class="crit-line"><b>ETL/ELT concept</b> — Can explain extract → transform → load in their own words, with an example.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Walk me through, in your own words, what happens to data between a source system and a warehouse.</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">DB concepts</h3></div>
-          <p class="crit-desc">Normalization, primary/foreign keys, relational vs non‑relational, fact/dimension modeling at a basic level.</p>
+          <p class="crit-line"><b>DB concepts</b> — Normalization, primary/foreign keys, relational vs non‑relational, fact/dimension modeling at a basic level.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>What's the difference between a fact table and a dimension table? Between a star schema and a snowflake schema?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Git basics</h3></div>
-          <p class="crit-desc">Clone/commit/push/pull, what a branch is, merge vs rebase awareness.</p>
+          <p class="crit-line"><b>Git basics</b> — Clone/commit/push/pull, what a branch is, merge vs rebase awareness.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Walk me through the commands you'd use to start a new feature: create a branch, commit a change, and get it ready for review.</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Code hygiene</h3></div>
-          <p class="crit-desc">Readable naming, comments, no hard‑coded values where they shouldn't be.</p>
+          <p class="crit-line"><b>Code hygiene</b> — Readable naming, comments, no hard‑coded values where they shouldn't be.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>[Show a short snippet] What would you rename or restructure here to make it easier for a teammate to read?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Secrets awareness</h3></div>
-          <p class="crit-desc">Do they know a leaked key needs rotating, not just deleting the line.</p>
+          <p class="crit-line"><b>Secrets awareness</b> — Do they know a leaked key needs rotating, not just deleting the line.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>You just noticed you pushed an API key to a public repo five minutes ago. What do you do right now?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Docker/containers</h3><span class="crit-badge">awareness level</span></div>
-          <p class="crit-desc">Knows roughly what a container is and why teams use one; not expected to build images.</p>
+          <p class="crit-line"><b>Docker/containers</b> <span class="crit-badge">awareness level</span> — Knows roughly what a container is and why teams use one; not expected to build images.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>In plain terms, what's a container, and why would a team use one instead of just running code on a VM?</q></p>
         </li>
       </ul>
@@ -830,33 +806,27 @@
     <div class="block-body">
       <ul class="criteria">
         <li>
-          <div class="crit-top"><h3 class="crit-title">Come with a real data sample</h3></div>
-          <p class="crit-desc">A small table or chart (e.g. weekly signups by channel, ticket resolution times by team, sales by region) — hand it to the candidate and let them work from it directly, rather than an abstract scenario. Paste or describe the exact sample you'll use in the box below so it's consistent across interviewers.</p>
+          <p class="crit-line"><b>Come with a real data sample</b> — A small table or chart (e.g. weekly signups by channel, ticket resolution times by team, sales by region) — hand it to the candidate and let them work from it directly, rather than an abstract scenario. Paste or describe the exact sample you'll use in the box below so it's consistent across interviewers.</p>
           <p class="crit-ask"><span class="ask-tag">Sample dataset</span><q>Weekly signups for 4 marketing channels over 6 weeks, where one channel (e.g. "Referral") has quietly doubled while the others are flat.</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Reads the data correctly first</h3></div>
-          <p class="crit-desc">States what's actually in front of them (axes, units, time period) before interpreting it.</p>
+          <p class="crit-line"><b>Reads the data correctly first</b> — States what's actually in front of them (axes, units, time period) before interpreting it.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Before we go further, what is this table actually showing — what's each column, and over what period?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Spots patterns / anomalies</h3></div>
-          <p class="crit-desc">Trends, outliers, or breaks in the numbers, not just a row-by-row description.</p>
+          <p class="crit-line"><b>Spots patterns / anomalies</b> — Trends, outliers, or breaks in the numbers, not just a row-by-row description.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>What stands out to you in this table? Is anything moving differently than the rest?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Gets to "so what"</h3></div>
-          <p class="crit-desc">Moves from observation to insight: what this likely means and why it might be happening.</p>
+          <p class="crit-line"><b>Gets to "so what"</b> — Moves from observation to insight: what this likely means and why it might be happening.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Why do you think Referral signups jumped like that? What are two or three plausible explanations?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Turns insight into action</h3></div>
-          <p class="crit-desc">Proposes a next step, decision, or thing they'd check next, not just a description of the data.</p>
+          <p class="crit-line"><b>Turns insight into action</b> — Proposes a next step, decision, or thing they'd check next, not just a description of the data.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>If this were real, what would you do next — what would you look into, or recommend to the team?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Flags uncertainty appropriately</h3></div>
-          <p class="crit-desc">Asks about data source/definitions or names what they'd verify before acting on it, rather than overreaching from a small sample.</p>
+          <p class="crit-line"><b>Flags uncertainty appropriately</b> — Asks about data source/definitions or names what they'd verify before acting on it, rather than overreaching from a small sample.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>How confident are you in that explanation with only 6 weeks of data? What would you want to check before acting on it?</q></p>
         </li>
       </ul>
@@ -891,23 +861,19 @@
     <div class="block-body">
       <ul class="criteria">
         <li>
-          <div class="crit-top"><h3 class="crit-title">Clarity</h3></div>
-          <p class="crit-desc">Explains a technical idea so a non‑technical listener would follow.</p>
+          <p class="crit-line"><b>Clarity</b> — Explains a technical idea so a non‑technical listener would follow.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Explain what a JOIN is to someone with no technical background.</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Adaptability</h3></div>
-          <p class="crit-desc">Responds well when pushed back on or redirected mid‑answer.</p>
+          <p class="crit-line"><b>Adaptability</b> — Responds well when pushed back on or redirected mid‑answer.</p>
           <p class="crit-ask"><span class="ask-tag">Try</span><q>Push back on an earlier answer — "I don't think that's quite right, walk me through your reasoning again" — and see how they respond.</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Motivation</h3></div>
-          <p class="crit-desc">Why Launchpad, why this track, what they're hoping to learn.</p>
+          <p class="crit-line"><b>Motivation</b> — Why Launchpad, why this track, what they're hoping to learn.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>What made you apply for this track specifically, and what do you want to be able to do by the end of it?</q></p>
         </li>
         <li>
-          <div class="crit-top"><h3 class="crit-title">Team fit</h3></div>
-          <p class="crit-desc">Collaboration signals, energy, how they'd describe their working style.</p>
+          <p class="crit-line"><b>Team fit</b> — Collaboration signals, energy, how they'd describe their working style.</p>
           <p class="crit-ask"><span class="ask-tag">Ask</span><q>Tell me about a time you had to ask for help on something you didn't know how to do — what happened?</q></p>
         </li>
       </ul>
